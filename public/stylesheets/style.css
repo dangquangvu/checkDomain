@@ -1,0 +1,45 @@
+body {
+    padding: 50px;
+    font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+}
+
+a {
+    color: #00B7FF;
+}
+
+.container .display-3,
+p.lead {
+    text-align: center;
+}
+
+.form-group {
+    display: inline
+}
+
+.pading {
+    margin: 0px 10px 0px 0px
+}
+
+.see {
+    display: flexbox;
+}
+
+a.show-list {
+    border: 2px solid gray;
+}
+
+#link {
+    background-color: aqua;
+}
+
+#green {
+    color: greenyellow;
+}
+
+#orange {
+    color: orange;
+}
+
+#red {
+    color: red;
+}

@@ -1,0 +1,156 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <title>
+
+    </title>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width" />
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link rel="stylesheet" href="/stylesheets/style.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <!-- <script language="javascript" type="text/javascript">
+        $(document).ready(function() {
+            setInterval("location.reload(true)", 10000);
+        });
+    </script>-->
+    <!-- <meta http-equiv="refresh" content="10"> -->
+    <script type="text/javascript">
+        $(document).ready(function() {
+            setInterval(checked, 1000);
+
+            function checked() {
+                console.log('xxx')
+                $.ajax('/refreshList', {
+                    dataType: 'json', // type of response data
+                    timeout: 500, // timeout milliseconds
+                    success: function(data, status, xhr) { // success callback function
+                        //console.log(data)
+                        data.map((item, index) => {
+                            let text = "";
+                            let green = '<i class="fa fa-square" id="green" aria-hidden="true"></i>'
+                            let red = '<i class="fa fa-square" id="red" aria-hidden="true"></i>'
+                            let orange = '<i class="fa fa-square" id="orange" aria-hidden="true"></i>'
+                            let black = '<i class="fa fa-square"  aria-hidden="true"></i>'
+                            for (let i = 0; i < item.time.length; i++) {
+                                if (item.time[i] > 0 && item.time[i] <= 600) {
+                                    text += green + " "
+                                }
+                                if (item.time[i] > 600 && item.time[i] <= 1000) {
+                                    text += orange + " "
+                                }
+                                if (item.time[i] > 1000) {
+                                    text += red + " "
+                                }
+                                if (item.time[i] == 0 || item.time[i] == null) {
+                                    text += black + " "
+                                }
+
+                            }
+                            document.getElementById("vl" + index).innerHTML = text;
+
+                        })
+                    },
+                    error: function(jqXhr, textStatus, errorMessage) { // error callback 
+                        $('p').append('Error: ' + errorMessage);
+                    }
+                });
+            }
+
+        });
+    </script>
+    <script type="text/javascript">
+        $(document).ready(function() {
+            setInterval(timeLoadPage, 1000);
+
+            function timeLoadPage() {
+                //console.log('xxx')
+                $.ajax('/refreshList', {
+                    dataType: 'json', // type of response data
+                    timeout: 500, // timeout milliseconds
+                    success: function(data, status, xhr) { // success callback function
+                        //console.log(data)
+                        data.map((item, index) => {
+                            let text;
+                            text = item.time[item.time.length - 1];
+                            document.getElementById("v" + index).innerHTML = text + ' ms';
+                        })
+                    },
+                    error: function(jqXhr, textStatus, errorMessage) { // error callback 
+                        $('p').append('Error: ' + errorMessage);
+                    }
+                });
+            }
+
+        });
+    </script>
+</head>
+
+<body>
+
+
+    <div class="content">
+        <div class="jumbotron">
+            <h1 class="display-3 text-center">show the list web</h1>
+            <form action="/" method="post">
+                <div class="input-group">
+                    <input class="form-control" name="ura" type="text" placeholder="url..." aria-label="Recipient's " aria-describedby="my-addon" value="">
+                    <div class="input-group-append">
+                        <button type="submit" class="btn btn-primary pading">Submit</button>
+                    </div>
+                </div>
+            </form>
+            <form action="/see" method="get">
+                <hr class="my-2">
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th id="mot">URL</th>
+                            <th id="hai">TITLE</th>
+                            <th id="ba">GRAPH</th>
+                            <th id="bon">TIMELOAD</th>
+                        </tr>
+                    </thead>
+                    <%data.forEach((dl,index) => {  %>
+                        <%let id = 'vl' + index%>
+                            <%let idtime = 'v' + index%>
+                                <tbody>
+                                    <tr>
+                                        <td scope="row" id="mot">
+                                            <%= dl.getUrl%>
+
+                                                <a href="/del/<%= dl._id%>" class="fa fa-trash" aria-hidden="true"></a>
+                                        </td>
+                                        <td id="hai">
+                                            <%= dl.title%>
+
+                                        </td>
+                                        <td id="ba">
+                                            <p id=<%=id %>></p>
+
+                                        </td>
+                                        <td id="bon">
+                                            <p id=<%=idtime %>></p>
+
+                                        </td>
+                                    </tr>
+                                </tbody>
+                                <%})%>
+                </table>
+            </form>
+        </div>
+    </div>
+
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <!-- <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script> -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+</body>
+
+</html>
