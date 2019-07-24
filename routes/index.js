@@ -1,20 +1,30 @@
 var express = require('express');
 const ur = require('../public/db/mongoose')
+const timeStamp = require('../public/db/mongooseTimeMonth')
 var router = express.Router();
-const MongoClient = require('mongodb').MongoClient;
+var app = express();
 const mongodb = require('mongodb');
-const assert = require('assert');
 const request = require('request');
-const jsdom = require('jsdom');
 var parseData = require('../routes/get.title');
-var getTimer = require('../routes/get.time');
 var objectId = mongodb.ObjectID;
+var getUrlMongo = mongodb.getUrl;
+var passport = require('passport');
+var flash = require('connect-flash');
+var morgan = require('morgan');
+var router = express.Router();
+var session = require('express-session');
 var getDomain = require('./getDomain');
-const dbName = 'auto_check';
+var updateMongo = require('./update.db')
+var express = express()
+var User = require('../public/db/User');
+//module.exports = function(app, passport, router) {
+var LocalStrategy = require('passport-local').Strategy;
+
+//router.get('*', (req, res) => res.send('Page Not found 404'));
 router.get('/', function(req, res, next) {
-    res.redirect('/see');
+    res.redirect('/login')
 });
-router.post('/', async function(reqR, resR, next) {
+router.post('/see', isLoggedIn, async function(reqR, resR, next) {
     let u = reqR.body.ura;
     let checked = async() => {
         await ur.findOne({ getUrl: u }, (err, body) => {
@@ -31,10 +41,6 @@ router.post('/', async function(reqR, resR, next) {
                         let title;
                         if (parseData(body) != null && res1.statusCode != null && res1 != null) {
                             title = await parseData(body);
-                            console.log(title)
-                            console.log(options)
-                            console.log(u)
-                            console.log(res1.statusCode)
                             urll.protocolUrl = options;
                             urll.title = title;
                             await urll.save();
@@ -43,10 +49,7 @@ router.post('/', async function(reqR, resR, next) {
                             request.get('http://' + u, async(req2, res2, body2) => {
                                 if (parseData(body2) != null && res2 != null) {
                                     let proUrl = 'http://' + u;
-                                    console.log('yyyyyyyyyyyyyyy')
                                     title = await parseData(body2);
-                                    console.log(title)
-                                    console.log(res2.statusCode)
                                     urll.protocolUrl = proUrl;
                                     urll.title = title;
                                     await urll.save();
@@ -66,40 +69,52 @@ router.post('/', async function(reqR, resR, next) {
     }
     checked();
 });
-router.get('/see', function(req, res, next) {
+router.get('/see', isLoggedIn, function(req, res, next) {
     ur.find({}).then((dulieu) => {
         res.render('see', { title: 'Express', data: dulieu });
     }).catch((e) => {
         res.status(500).send()
     })
 });
-router.get('/del/:idDel', function(req, res, next) {
-    var idDel = objectId(req.params.idDel);
+router.get('/del/:idDel/:urlDel', isLoggedIn, async function(req, res, next) {
+    let idDel = objectId(req.params.idDel);
+    let urlDel = req.params.urlDel;
     console.log(idDel)
-    ur.deleteOne({ _id: idDel }, function(err) {
-        if (err)
-            console.log('The raw response from Mongo was ', err);
-        res.redirect('/see')
-    });
+    console.log(urlDel, 'xxxxxxxxxxxxxxxx')
+    try {
+        let deleteUr = await ur.deleteOne({ _id: idDel });
+        console.log('yyyyyyyyyyyy')
+    } catch (error) {
+        console.log(error)
+    }
+
+    try {
+        let deletetime = await timeStamp.deleteMany({ getUrl: urlDel }, { multi: true });
+        console.log('zzzzzzzzzzzz')
+    } catch (error) {
+        console.log(error)
+    }
+    res.redirect('/see');
 })
-router.get('/refreshList', async function(req, res, next) {
+
+// login signup
+
+router.get('/refreshList', isLoggedIn, async function(req, res, next) {
     const arrTimeLoad = [];
     let data = await ur.find({});
     data.map(async item => {
         let geturl = item.getUrl;
         let time = [];
         let time2 = [];
-        for (let i = item.timeLoad.length - 20; i < item.timeLoad.length; i = i + 2) {
+        for (let i = 0; i < item.timeLoad.length; i++) {
             time2 = time.push(item.timeLoad[i]);
         }
         let object = { geturl, time }
-            //console.log(object)
         await arrTimeLoad.push(object)
     })
     res.send(arrTimeLoad);
 });
-router.get('/getDomain', async function(req, res, next) {
-    //let value = await ur.find({});
+router.get('/getDomain', isLoggedIn, async function(req, res, next) {
     const arrDomain = []
     let data = []
     data = await getDomain(arrDomain);
@@ -109,19 +124,107 @@ router.get('/getDomain', async function(req, res, next) {
     res.send(data)
 });
 
-router.post('/getDataDomain', async function(req, res, next) {
+router.post('/getDataDomain', isLoggedIn, async function(req, res, next) {
     let b = req.body.listDomain;
-    console.log(typeof b);
-    b.map(async item => {
-        await ur.updateOne({ _id: item.id }, {
-                $push: {
-                    timeLoad: item.timeLoad
-                }
-            },
-            function(err, raw) {
-                if (err) return handleError(err);
-                console.log('The raw response from Mongo was ', raw);
-            })
-    })
+    updateMongo(b);
+    res.end();
 });
+
+
+router.get('/login', function(req, res) {
+    res.render('login.ejs', { message: req.flash('loginMessage') });
+});
+
+router.post('/login', passport.authenticate('local-login', {
+    successRedirect: '/see',
+    failureRedirect: '/login',
+    failureFlash: true
+}));
+router.get('/signup', function(req, res) {
+    res.render('signup.ejs', { message: req.flash('signupMessage') });
+});
+router.post('/signup', passport.authenticate('local-signup', {
+    successRedirect: '/login',
+    failureRedirect: '/signup',
+    failureFlash: true
+}));
+
+router.get('/logout', function(req, res) {
+    req.logout();
+    res.redirect('/');
+});
+
+
+function isLoggedIn(req, res, next) {
+    if (req.isAuthenticated())
+        return next();
+    res.redirect('/');
+}
+passport.serializeUser(function(user, done) {
+    done(null, user.id);
+});
+
+passport.deserializeUser(function(id, done) {
+    User.findById(id, function(err, user) {
+        done(err, user);
+    });
+});
+
+passport.use('local-login', new LocalStrategy({
+        // by default, local strategy uses username and password, we will override with email
+        usernameField: 'email',
+        passwordField: 'password',
+        passReqToCallback: true // allows us to pass back the entire request to the callback
+    },
+    function(req, email, password, done) { // callback with email and password from our form
+
+        // find a user whose email is the same as the forms email
+        // we are checking to see if the user trying to login already exists
+        User.findOne({ email: email }, function(err, user) {
+            console.log('xxxxxxxxxxxxxxxxxxxxxxx')
+            if (err)
+                return done(err);
+            if (!user) {
+                console.log('yyyyyyyyyyyyyyyy')
+                return done(null, false, req.flash('loginMessage', 'No user found.'));
+            }
+            if (!user.validPassword(password)) {
+                console.log('zzzzzzzzzzzz')
+                return done(null, false, req.flash('loginMessage', 'Oops! Wrong password.'));
+            }
+
+            return done(null, user);
+        });
+
+    }));
+
+passport.use('local-signup', new LocalStrategy({
+        usernameField: 'email',
+        passwordField: 'password',
+        passReqToCallback: true
+    },
+    function(req, email, password, done) {
+        process.nextTick(function() {
+            User.findOne({ email: email }, function(err, user) {
+                if (err)
+                    return done(err);
+                if (user) {
+                    return done(null, false, req.flash('signupMessage', 'Email  đã tồn tại .'));
+                } else {
+                    var newUser = new User();
+                    newUser.email = email;
+                    newUser.password = newUser.generateHash(password);
+                    newUser.save(function(err) {
+                        if (err)
+                            throw err;
+                        return done(null, newUser);
+                    });
+                }
+
+            });
+
+        });
+
+    }));
+
 module.exports = router;

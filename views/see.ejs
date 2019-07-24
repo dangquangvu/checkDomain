@@ -20,6 +20,13 @@
         });
     </script>-->
     <!-- <meta http-equiv="refresh" content="10"> -->
+    <style>
+        body {
+            padding-top: 80px;
+            background-color: lightblue;
+            background-image: url('./mau_background_don_gian_11_768x536_bffdffbf5cd74dc4a3426fdccc2d180f_large.jpg')
+        }
+    </style>
     <script type="text/javascript">
         $(document).ready(function() {
             setInterval(checked, 1000);
@@ -97,7 +104,7 @@
     <div class="content">
         <div class="jumbotron">
             <h1 class="display-3 text-center">show the list web</h1>
-            <form action="/" method="post">
+            <form action="/see" method="post">
                 <div class="input-group">
                     <input class="form-control" name="ura" type="text" placeholder="url..." aria-label="Recipient's " aria-describedby="my-addon" value="">
                     <div class="input-group-append">
@@ -124,7 +131,7 @@
                                         <td scope="row" id="mot">
                                             <%= dl.getUrl%>
 
-                                                <a href="/del/<%= dl._id%>" class="fa fa-trash" aria-hidden="true"></a>
+                                                <a href="/del/<%= dl._id%>/<%= dl.getUrl%>" class="fa fa-trash" aria-hidden="true"></a>
                                         </td>
                                         <td id="hai">
                                             <%= dl.title%>
@@ -142,6 +149,8 @@
                                 </tbody>
                                 <%})%>
                 </table>
+                <p style="text-align: center">Need do anymore? <a href="/logout">log out</a></p>
+                <p style="text-align: center">Or go <a href="/">home</a>.</p>
             </form>
         </div>
     </div>

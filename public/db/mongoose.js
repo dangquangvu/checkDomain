@@ -27,7 +27,7 @@ var url = new mongoose.Schema({
     },
     flag: {
         type: Boolean,
-        default: false
+        default: true
     }
 }, { collection: 'Url' });
 module.exports = mongoose.model('url', url);
