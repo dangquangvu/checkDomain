@@ -24,7 +24,7 @@ var getDomain = async(arrData) => {
                     }
                 })
             } catch (err) {
-                return handleError(error)
+
             }
         }
         console.log('if')
@@ -45,7 +45,7 @@ var getDomain = async(arrData) => {
                 }
             }, { multi: true })
         } catch (err) {
-            return handleError(error)
+
         }
         console.log('else');
     }

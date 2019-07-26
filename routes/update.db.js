@@ -2,7 +2,6 @@ var timeMonth = require('../public/db/mongooseTimeMonth')
 var url = require('../public/db/mongoose')
 var listDomain = [];
 let updateMongo = async(listDomain) => {
-    console.log('xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx')
     listDomain.map(async(item) => {
         try {
             let timeItem = new timeMonth();

@@ -97,9 +97,9 @@ router.get('/del/:idDel/:urlDel', isLoggedIn, async function(req, res, next) {
     res.redirect('/see');
 })
 
-// login signup
+// get domain , ajax ,lambda
 
-router.get('/refreshList', isLoggedIn, async function(req, res, next) {
+router.get('/refreshList', async function(req, res, next) {
     const arrTimeLoad = [];
     let data = await ur.find({});
     data.map(async item => {
@@ -124,12 +124,13 @@ router.get('/getDomain', isLoggedIn, async function(req, res, next) {
     res.send(data)
 });
 
-router.post('/getDataDomain', isLoggedIn, async function(req, res, next) {
+router.post('/getDataDomain', async function(req, res, next) {
     let b = req.body.listDomain;
     updateMongo(b);
     res.end();
 });
 
+// Login logout Sign up 
 
 router.get('/login', function(req, res) {
     res.render('login.ejs', { message: req.flash('loginMessage') });
@@ -156,9 +157,21 @@ router.get('/logout', function(req, res) {
 
 
 function isLoggedIn(req, res, next) {
-    if (req.isAuthenticated())
+
+    if (req.isAuthenticated()) {
+        console.log(req.session)
         return next();
-    res.redirect('/');
+    }
+    //req.session.destroy();
+    console.log(req.session)
+    res.redirect('/login');
+
+}
+
+function checkSession(req, res, next) {
+    if (req.session.passport == null) {
+        res.redirect('/login')
+    }
 }
 passport.serializeUser(function(user, done) {
     done(null, user.id);
@@ -171,28 +184,21 @@ passport.deserializeUser(function(id, done) {
 });
 
 passport.use('local-login', new LocalStrategy({
-        // by default, local strategy uses username and password, we will override with email
         usernameField: 'email',
         passwordField: 'password',
-        passReqToCallback: true // allows us to pass back the entire request to the callback
+        passReqToCallback: true
     },
-    function(req, email, password, done) { // callback with email and password from our form
+    function(req, email, password, done) {
 
-        // find a user whose email is the same as the forms email
-        // we are checking to see if the user trying to login already exists
         User.findOne({ email: email }, function(err, user) {
-            console.log('xxxxxxxxxxxxxxxxxxxxxxx')
             if (err)
                 return done(err);
             if (!user) {
-                console.log('yyyyyyyyyyyyyyyy')
                 return done(null, false, req.flash('loginMessage', 'No user found.'));
             }
             if (!user.validPassword(password)) {
-                console.log('zzzzzzzzzzzz')
                 return done(null, false, req.flash('loginMessage', 'Oops! Wrong password.'));
             }
-
             return done(null, user);
         });
 
