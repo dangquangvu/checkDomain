@@ -16,6 +16,9 @@ var timeMonth = new mongoose.Schema({
     dateTime: {
         type: Number,
         default: 0
+    },
+    timeLoad: {
+        type: Array
     }
 }, { collection: 'timeMonth' });
 module.exports = mongoose.model('timeMonth', timeMonth);

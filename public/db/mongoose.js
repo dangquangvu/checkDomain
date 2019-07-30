@@ -22,6 +22,9 @@ var url = new mongoose.Schema({
         trim: true,
         default: "not found!"
     },
+    idUser: {
+        type: String
+    },
     timeLoad: {
         type: Array
     },

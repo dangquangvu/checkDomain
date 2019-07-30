@@ -1,10 +1,10 @@
 var createError = require('http-errors');
 var express = require('express');
+var router = express.Router();
 var path = require('path');
 var cookieParser = require('cookie-parser');
-var logger = require('morgan');
-var router = express.Router();
 var indexRouter = require('./routes/index');
+var logger = require('morgan');
 var morgan = require('morgan');
 var app = express();
 var bodyParser = require('body-parser')
@@ -14,7 +14,10 @@ var passport = require('passport');
 var flash = require('connect-flash');
 var LocalStrategy = require('passport-local').Strategy;
 const mongoose = require('mongoose');
-
+mongoose.connect("mongodb://localhost:27017/auto_check", {
+    useNewUrlParser: true,
+    useCreateIndex: true
+});
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');
 app.use(logger('dev'));
@@ -28,9 +31,23 @@ app.use(express.static(__dirname + "../views"));
 app.use(morgan('dev'));
 app.use(cookieParser());
 app.use(bodyParser());
+var conf = {
+    db: {
+        db: 'auto_check',
+        host: 'localhost',
+        collection: 'sessions'
+    },
+    secret: '076ee61d63aa10a125ea872411e433b9'
+};
 app.use(session({
-    secret: 'foo',
-    cookie: { maxAge: 6 * 1000 }
+    secret: conf.secret,
+    cookie: { maxAge: 2592000000 },
+    saveUninitialized: true,
+    store: new MongoStore({
+        mongooseConnection: mongoose.connection
+
+        //ttl: 60000
+    })
 }));
 app.use(flash());
 app.use((req, res, next) => {
@@ -62,6 +79,12 @@ app.use(function(error, req, res, next) {
     res.status(500);
     res.send({ title: '500: Internal Server Error', error: error });
 });
+// var dbUrl = 'mongodb://localhost/auto_check';
+// mongoose.connect(dbUrl);
+// mongoose.connection.on('open', function() {
+//     app.listen(7000);
+//     console.log("connection open");
+// });
 app.use(function(err, req, res, next) {
     res.locals.message = err.message;
     res.locals.error = req.app.get('env') === 'development' ? err : {};

@@ -79,18 +79,14 @@ router.get('/see', isLoggedIn, function(req, res, next) {
 router.get('/del/:idDel/:urlDel', isLoggedIn, async function(req, res, next) {
     let idDel = objectId(req.params.idDel);
     let urlDel = req.params.urlDel;
-    console.log(idDel)
-    console.log(urlDel, 'xxxxxxxxxxxxxxxx')
     try {
         let deleteUr = await ur.deleteOne({ _id: idDel });
-        console.log('yyyyyyyyyyyy')
     } catch (error) {
         console.log(error)
     }
 
     try {
         let deletetime = await timeStamp.deleteMany({ getUrl: urlDel }, { multi: true });
-        console.log('zzzzzzzzzzzz')
     } catch (error) {
         console.log(error)
     }
@@ -99,7 +95,7 @@ router.get('/del/:idDel/:urlDel', isLoggedIn, async function(req, res, next) {
 
 // get domain , ajax ,lambda
 
-router.get('/refreshList', async function(req, res, next) {
+router.get('/refreshList', isLoggedIn, async function(req, res, next) {
     const arrTimeLoad = [];
     let data = await ur.find({});
     data.map(async item => {
@@ -114,7 +110,7 @@ router.get('/refreshList', async function(req, res, next) {
     })
     res.send(arrTimeLoad);
 });
-router.get('/getDomain', isLoggedIn, async function(req, res, next) {
+router.get('/getDomain', async function(req, res, next) {
     const arrDomain = []
     let data = []
     data = await getDomain(arrDomain);
@@ -142,6 +138,7 @@ router.post('/login', passport.authenticate('local-login', {
     failureFlash: true
 }));
 router.get('/signup', function(req, res) {
+
     res.render('signup.ejs', { message: req.flash('signupMessage') });
 });
 router.post('/signup', passport.authenticate('local-signup', {
@@ -159,12 +156,11 @@ router.get('/logout', function(req, res) {
 function isLoggedIn(req, res, next) {
 
     if (req.isAuthenticated()) {
-        console.log(req.session)
-        return next();
+        // console.log(req.session)
+        next();
+    } else {
+        res.redirect('/login')
     }
-    //req.session.destroy();
-    console.log(req.session)
-    res.redirect('/login');
 
 }
 
@@ -172,7 +168,9 @@ function checkSession(req, res, next) {
     if (req.session.passport == null) {
         res.redirect('/login')
     }
+    next();
 }
+//checkSession();
 passport.serializeUser(function(user, done) {
     done(null, user.id);
 });
