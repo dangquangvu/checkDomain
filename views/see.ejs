@@ -29,10 +29,8 @@
     </style>
     <script type="text/javascript">
         $(document).ready(function() {
-            setInterval(checked, 1000);
-
+            //setInterval(checked, 1000);
             function checked() {
-                console.log('xxx')
                 $.ajax('/refreshList', {
                     dataType: 'json', // type of response data
                     timeout: 500, // timeout milliseconds
@@ -73,10 +71,8 @@
     </script>
     <script type="text/javascript">
         $(document).ready(function() {
-            setInterval(timeLoadPage, 1000);
-
+            // setInterval(timeLoadPage, 1000);
             function timeLoadPage() {
-                //console.log('xxx')
                 $.ajax('/refreshList', {
                     dataType: 'json', // type of response data
                     timeout: 500, // timeout milliseconds
@@ -112,18 +108,19 @@
                     </div>
                 </div>
             </form>
-            <form action="/see" method="get">
-                <hr class="my-2">
-                <table class="table">
-                    <thead>
-                        <tr>
-                            <th id="mot">URL</th>
-                            <th id="hai">TITLE</th>
-                            <th id="ba">GRAPH</th>
-                            <th id="bon">TIMELOAD</th>
-                        </tr>
-                    </thead>
-                    <%data.forEach((dl,index) => {  %>
+
+            <hr class="my-2">
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th id="mot">URL</th>
+                        <th id="hai">TITLE</th>
+                        <th id="ba">GRAPH</th>
+                        <th id="bon">TIMELOAD</th>
+                    </tr>
+                </thead>
+                <%data.forEach((dl,index) => {  %>
+                    <form action="/see" method="get">
                         <%let id = 'vl' + index%>
                             <%let idtime = 'v' + index%>
                                 <tbody>
@@ -147,11 +144,12 @@
                                         </td>
                                     </tr>
                                 </tbody>
-                                <%})%>
-                </table>
-                <p style="text-align: center">Need do anymore? <a href="/logout">log out</a></p>
-                <p style="text-align: center">Or go <a href="/">home</a>.</p>
-            </form>
+                    </form>
+                    <%})%>
+            </table>
+            <p style="text-align: center">Need do anymore? <a href="/logout">log out</a></p>
+            <p style="text-align: center">Or go <a href="/">home</a>.</p>
+
         </div>
     </div>
 

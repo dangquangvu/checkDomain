@@ -31,22 +31,21 @@ app.use(express.static(__dirname + "../views"));
 app.use(morgan('dev'));
 app.use(cookieParser());
 app.use(bodyParser());
-var conf = {
-    db: {
-        db: 'auto_check',
-        host: 'localhost',
-        collection: 'sessions'
-    },
-    secret: '076ee61d63aa10a125ea872411e433b9'
-};
+// var conf = {
+//     // db: {
+//     //     db: 'auto_check',
+//     //     host: 'localhost',
+//     //     collection: 'sessions'
+//     // },
+//     secret: '076ee61d63aa10a125ea872411e433b9'
+// };
 app.use(session({
-    secret: conf.secret,
+    secret: '076ee61d63aa10a125ea872411e433b9',
     cookie: { maxAge: 2592000000 },
     saveUninitialized: true,
     store: new MongoStore({
         mongooseConnection: mongoose.connection
-
-        //ttl: 60000
+            //ttl: 60000
     })
 }));
 app.use(flash());
@@ -62,15 +61,7 @@ app.use('/', indexRouter);
 app.use(function(req, res, next) {
     next(createError(404));
 });
-// app.get('/see', auth.restrict, routes.account);
-// auth.restrict = function(req, res, next) {
-//     if (!req.session.userid) {
-//         req.session.redirectTo = '/account';
-//         res.redirect('/login');
-//     } else {
-//         next();
-//     }
-// };
+
 app.use(function(req, res) {
     res.status(400);
     res.send({ title: '404: File Not Found', error: error });

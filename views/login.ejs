@@ -14,11 +14,12 @@
             background-color: lightblue;
         }
     </style>
+
 </head>
 
 <body>
     <form action="/login" method="post">
-        <div class="container">
+        <div class="container-login">
 
             <div class="col-sm-6 col-sm-offset-3">
                 <% if (message.length > 0) { %>
@@ -40,18 +41,18 @@
                                 <input type="password" class="form-control" name="password" placeholder="Enter your password...">
                             </div>
 
-                            <button type="submit" class="btn btn-warning btn-lg">Login</button>
+                            <button type="submit" id="submitLogin" class="btn btn-warning btn-lg">Login</button>
                         </form>
 
                         <hr>
 
                         <p>Need an account? <a href="/signup">Signup</a></p>
-                        <p>Or go <a href="/">home</a>.</p>
+                        <p>Or go <a href="/see">home</a>.</p>
 
             </div>
-
+        </div>
     </form>
-    </div>
+
 </body>
 
 </html>
