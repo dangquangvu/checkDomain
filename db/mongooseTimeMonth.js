@@ -13,9 +13,6 @@ var timeCheck = new mongoose.Schema({
         type: Number,
         default: 0
     },
-    timeLoad: {
-        type: Array
-    },
     idUser: {
         type: String
     }
