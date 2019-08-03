@@ -1,11 +1,11 @@
-const ur = require('../public/db/mongoose')
+var { Url, TimeCheck } = require('../db/index')
 const mongodb = require('mongodb');
 var objectId = mongodb.ObjectID;
 
 module.exports = {
     see: function(req, res, next) {
         let iduser = req.session.passport.user;
-        ur.find({ idUser: iduser }).then((dulieu) => {
+        Url.find({ idUser: iduser }).then((dulieu) => {
             res.render('see', { title: 'Express', data: dulieu });
         }).catch((e) => {
             res.status(500).send()
@@ -22,9 +22,9 @@ module.exports = {
         } catch (error) {
             console.log(error)
         }
-
+        //xu ly
         try {
-            let deletetime = await timeStamp.deleteMany({ getUrl: urlDel }, { multi: true });
+            let deletetime = await TimeCheck.deleteMany({ getUrl: urlDel }, { multi: true });
         } catch (error) {
             console.log(error)
         }

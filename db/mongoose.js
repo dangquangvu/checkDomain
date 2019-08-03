@@ -1,7 +1,7 @@
 const mongoose = require('mongoose');
 const timestamps = require('timestamp');
 
-var url = new mongoose.Schema({
+var url = mongoose.Schema({
     getUrl: {
         type: String,
         trim: true,

@@ -2,7 +2,7 @@ const mongoose = require('mongoose');
 const timestamps = require('timestamp');
 var bcrypt = require('bcrypt-nodejs');
 
-var User = new mongoose.Schema({
+var User = mongoose.Schema({
     email: {
         type: String,
         require: true,

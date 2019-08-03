@@ -1,16 +1,11 @@
 var express = require('express');
-const ur = require('../public/db/mongoose')
-const timeStamp = require('../public/db/mongooseTimeMonth')
 var router = express.Router();
 var app = express();
 const request = require('request');
 var passport = require('passport');
 var flash = require('connect-flash');
-var morgan = require('morgan');
-var router = express.Router();
 var session = require('express-session');
-var express = express()
-var User = require('../public/db/User');
+var { Url, User, TimeCheck } = require('../db/index')
 var { AddDomain, ClientSide } = require('../controller')
 var LocalStrategy = require('passport-local').Strategy;
 
@@ -59,12 +54,9 @@ function isLoggedIn(req, res, next) {
     }
 
 }
-
-
 passport.serializeUser(function(user, done) {
     done(null, user.id);
 });
-
 passport.deserializeUser(function(id, done) {
     User.findById(id, function(err, user) {
         done(err, user);

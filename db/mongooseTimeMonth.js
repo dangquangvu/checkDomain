@@ -1,6 +1,6 @@
 const mongoose = require('mongoose');
 
-var timeMonth = new mongoose.Schema({
+var timeCheck = new mongoose.Schema({
     getUrl: {
         type: String,
         required: true,
@@ -15,6 +15,9 @@ var timeMonth = new mongoose.Schema({
     },
     timeLoad: {
         type: Array
+    },
+    idUser: {
+        type: String
     }
 }, { collection: 'timeMonth' });
-module.exports = mongoose.model('timeMonth', timeMonth);
+module.exports = mongoose.model('timeCheck', timeCheck);

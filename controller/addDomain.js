@@ -1,6 +1,6 @@
 const request = require('request');
 const mongodb = require('mongodb');
-const ur = require('../public/db/mongoose')
+var { Url, User, TimeCheck } = require('../db/index')
 var updateMongo = require('../routes/update.db')
 var getDomain = require('../routes/getDomain');
 var parseData = require('../routes/get.title');
@@ -12,7 +12,7 @@ module.exports = {
         console.log(iduser)
         let u = reqR.body.ura;
         let checked = async() => {
-            let data = await ur.find({ $and: [{ getUrl: u }, { idUser: iduser }] })
+            let data = await Url.find({ $and: [{ getUrl: u }, { idUser: iduser }] })
             console.log(data.length)
             if (data.length > 0) {
                 console.log("Url already available, please try again!", u, data.getUrl);
@@ -20,7 +20,7 @@ module.exports = {
             }
             if (data.length == 0) {
                 console.log('yyy')
-                let urll = new ur();
+                let urll = new Url();
                 urll.getUrl = u;
                 let options = 'https://' + u;
                 request.get({ options, time: true, timeout: 3000 }, async(reqG, res) => {
@@ -66,7 +66,7 @@ module.exports = {
     ajaxGetData: async function(req, res, next) {
         let iduser = req.session.passport.user;
         const arrTimeLoad = [];
-        let data = await ur.find({ idUser: iduser });
+        let data = await Url.find({ idUser: iduser });
         data.map(async item => {
             let geturl = item.getUrl;
             let time = [];
@@ -82,10 +82,13 @@ module.exports = {
     getDomain: async function(req, res, next) {
         const arrDomain = []
         let data = []
+            //let iduser = req.session.passport.user;
+            //console.log(333, iduser)
         data = await getDomain(arrDomain);
-        data.map(item => {
-            console.log(item);
-        })
+
+        // data.map(item => {
+        //     console.log(item);
+        // })
         res.send(data)
     },
     getDataDomain: async function(req, res, next) {

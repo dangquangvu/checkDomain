@@ -1,19 +1,19 @@
-var timeMonth = require('../public/db/mongooseTimeMonth')
-var url = require('../public/db/mongoose')
+var { Url, User, TimeCheck } = require('../db/index')
 var listDomain = [];
 let updateMongo = async(listDomain) => {
     listDomain.map(async(item) => {
         try {
-            let timeItem = new timeMonth();
+            let timeItem = new TimeCheck();
             timeItem.getUrl = item.url;
             timeItem.timeLoad = item.timeLoad;
             timeItem.dateTime = item.date;
+            timeItem.idUser = item.iduser;
             let saveUser = await timeItem.save();
         } catch (err) {
             console.log('err' + err);
         }
         try {
-            let data = await url.findOne({ _id: item.id });
+            let data = await Url.findOne({ _id: item.id });
             let arrTimeLoad = [];
             arrTimeLoad = data.timeLoad;
             if (data.timeLoad.length < 10) {
@@ -21,7 +21,7 @@ let updateMongo = async(listDomain) => {
                 arrTimeLoad.push(item.timeLoad);
                 console.log(arrTimeLoad)
                 try {
-                    let update = await url.updateOne({ _id: item.id }, {
+                    let update = await Url.updateOne({ _id: item.id }, {
                         $set: {
                             timeLoad: arrTimeLoad
                         }
@@ -33,7 +33,7 @@ let updateMongo = async(listDomain) => {
                 arrTimeLoad.push(item.timeLoad);
                 console.log(arrTimeLoad)
                 try {
-                    let update = await url.updateOne({ _id: item.id }, {
+                    let update = await Url.updateOne({ _id: item.id }, {
                         $set: {
                             timeLoad: arrTimeLoad
                         }
