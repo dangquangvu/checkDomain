@@ -17,14 +17,16 @@ module.exports = {
     deleteDomain: async function(req, res, next) {
         let idDel = objectId(req.params.idDel);
         let urlDel = req.params.urlDel;
+        let iduser = req.session.passport.user;
         try {
-            let deleteUr = await ur.deleteOne({ _id: idDel });
+            let deleteUr = await Url.deleteOne({ _id: idDel });
         } catch (error) {
             console.log(error)
         }
         //xu ly
+        console.log(iduser);
         try {
-            let deletetime = await TimeCheck.deleteMany({ getUrl: urlDel }, { multi: true });
+            let deletetime = await TimeCheck.deleteMany({ $and: [{ getUrl: urlDel }, { idUser: iduser }]}, { multi: true });
         } catch (error) {
             console.log(error)
         }
