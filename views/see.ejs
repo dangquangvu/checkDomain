@@ -29,7 +29,7 @@
     </style>
     <script type="text/javascript">
         $(document).ready(function() {
-            setInterval(checked, 1000);
+            setInterval(checked, 5000);
 
             function checked() {
                 $.ajax('/refreshList', {
@@ -72,7 +72,7 @@
     </script>
     <script type="text/javascript">
         $(document).ready(function() {
-            setInterval(timeLoadPage, 1000);
+            setInterval(timeLoadPage, 5000);
 
             function timeLoadPage() {
                 $.ajax('/refreshList', {
