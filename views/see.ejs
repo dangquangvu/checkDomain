@@ -105,68 +105,6 @@
 </head>
 
 <body>
-
-
-    <!-- <div class="content " id="font_size">
-        <div class="jumbotron">
-            <form action="/see" method="post">
-                <div class="input-group">
-                    <input class="form-control" name="ura" type="text" placeholder="url..." aria-label="Recipient's " aria-describedby="my-addon" value="">
-                    <div class="input-group-append">
-                        <button type="submit" class="btn btn-primary pading">Submit</button>
-                    </div>
-                </div>
-            </form>
-            <form action="/see" method="get"></form>
-            <hr class="my-2">
-            <table class="table height">
-                <thead>
-                    <tr>
-                        <th id="mot">URL</th>
-                        <th id="hai">TITLE</th>
-                        <th id="ba">GRAPH</th>
-                        <th id="bon">TIMELOAD</th>
-                    </tr>
-                </thead>
-                <%data.forEach((dl,index) => {  %>
-
-                    <%let id = 'vl' + index%>
-                        <%let idtime = 'v' + index%>
-                            <tbody>
-                                <tr>
-                                    <td scope="row" class="width1" id="mot">
-                                        <%= dl.getUrl%>
-
-                                            <a href="/del/<%= dl._id%>/<%= dl.getUrl%>" class="fa fa-trash" aria-hidden="true"></a>
-                                    </td>
-                                    <td id="hai" class="width2">
-                                        <%= dl.title%>
-
-                                    </td>
-                                    <td id="ba" class="width3">
-                                        <p id=<%=id %>></p>
-
-                                    </td>
-                                    <td id="bon" class="width4">
-                                        <p id=<%=idtime %>></p>
-
-                                    </td>
-                                </tr>
-                            </tbody>
-        </div>
-        <%})%>
-
-            </table>
-            </form>
-            <p style="text-align: center">Need do anymore? <a href="/logout">log out</a></p>
-            <p style="text-align: center">Or go <a href="/">home</a>.</p>
-
-
-
-    </div>
-    </div> -->
-
-
     <div class="limiter">
         <div class="container-table100">
             <div class="wrap-table100">
@@ -220,7 +158,7 @@
                                             </tr>
 
                                         </tbody>
-                                        <%}%>
+                                        <%})%>
                         </table>
                     </div>
                     </form>
