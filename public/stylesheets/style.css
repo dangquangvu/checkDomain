@@ -43,3 +43,42 @@ a.show-list {
 #red {
     color: red;
 }
+
+.width1 {
+    height: 10%;
+    width: 23% !important;
+    font: 5px !important;
+    border: 1px rgb(236, 11, 11) solid !important;
+}
+
+.width2 {
+    height: 10%;
+    width: 25%!important;
+    font: 5px !important;
+    border: 1px rgb(236, 11, 11) solid !important;
+}
+
+.width3 {
+    height: 10%;
+    width: 25%;
+    height: 5px!important;
+    font: 5px!important;
+    border: 1px rgb(236, 11, 11) solid!important;
+}
+
+.width4 {
+    height: 10%;
+    width: 25% !important;
+    font: 5px !important;
+    border: 1px rgb(236, 11, 11) solid !important;
+}
+
+.height {
+    height: 10% !important;
+    border: 1px rgb(236, 11, 11) solid !important;
+}
+
+.font_size {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif !important;
+    font: 5px !important;
+}

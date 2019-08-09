@@ -99,9 +99,8 @@
 <body>
 
 
-    <div class="content">
+    <div class="content " id="font_size">
         <div class="jumbotron">
-            <h1 class="display-3 text-center">show the list web</h1>
             <form action="/see" method="post">
                 <div class="input-group">
                     <input class="form-control" name="ura" type="text" placeholder="url..." aria-label="Recipient's " aria-describedby="my-addon" value="">
@@ -110,9 +109,9 @@
                     </div>
                 </div>
             </form>
-
+            <form action="/see" method="get"></form>
             <hr class="my-2">
-            <table class="table">
+            <table class="table height">
                 <thead>
                     <tr>
                         <th id="mot">URL</th>
@@ -122,35 +121,65 @@
                     </tr>
                 </thead>
                 <%data.forEach((dl,index) => {  %>
-                    <form action="/see" method="get">
-                        <%let id = 'vl' + index%>
-                            <%let idtime = 'v' + index%>
-                                <tbody>
+
+                    <%let id = 'vl' + index%>
+                        <%let idtime = 'v' + index%>
+                            <tbody>
+                                <tr>
+                                    <td scope="row" class="width1" id="mot">
+                                        <%= dl.getUrl%>
+
+                                            <a href="/del/<%= dl._id%>/<%= dl.getUrl%>" class="fa fa-trash" aria-hidden="true"></a>
+                                    </td>
+                                    <td id="hai" class="width2">
+                                        <%= dl.title%>
+
+                                    </td>
+                                    <td id="ba" class="width3">
+                                        <p id=<%=id %>></p>
+
+                                    </td>
+                                    <td id="bon" class="width4">
+                                        <p id=<%=idtime %>></p>
+
+                                    </td>
+                                </tr>
+                            </tbody>
+
+                            <div>
+                                <table style="border:1px green solid ">
                                     <tr>
-                                        <td scope="row" id="mot">
-                                            <%= dl.getUrl%>
-
-                                                <a href="/del/<%= dl._id%>/<%= dl.getUrl%>" class="fa fa-trash" aria-hidden="true"></a>
-                                        </td>
-                                        <td id="hai">
+                                        <td style="border:1px green solid ;padding: 50px 50px 50px 50px ">Url</td>
+                                        <td style="border:1px green solid ;padding: 50px 50px 50px 50px ">Url</td>
+                                        <td style="border:1px green solid ;padding: 50px 50px 50px 50px ">Url</td>
+                                        <td style="border:1px green solid ;padding: 50px 50px 50px 50px ">Url</td>
+                                    </tr>
+                                    <tr>
+                                        <td style="border:1px green solid ;padding: 20px 20px 20px 20px ">
                                             <%= dl.title%>
-
                                         </td>
-                                        <td id="ba">
-                                            <p id=<%=id %>></p>
-
+                                        <td style="border:1px green solid ;padding: 20px 20px 20px 20px ">
+                                            <%= dl.title%>
                                         </td>
-                                        <td id="bon">
-                                            <p id=<%=idtime %>></p>
-
+                                        <td style="border:1px green solid ;padding: 20px 20px 20px 20px ">
+                                            <%= dl.title%>
+                                        </td>
+                                        <td style="border:1px green solid ;padding: 20px 20px 20px 20px ">
+                                            <%= dl.title%>
                                         </td>
                                     </tr>
-                                </tbody>
-                    </form>
-                    <%})%>
+                                </table>
+
+
+                            </div>
+                            <%})%>
+
             </table>
+            </form>
             <p style="text-align: center">Need do anymore? <a href="/logout">log out</a></p>
             <p style="text-align: center">Or go <a href="/">home</a>.</p>
+
+
 
         </div>
     </div>
