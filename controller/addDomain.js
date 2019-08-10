@@ -11,57 +11,61 @@ module.exports = {
         let iduser = reqR.session.passport.user;
         console.log(iduser)
         let u = reqR.body.ura;
-        let checked = async() => {
-            let data = await Url.find({ $and: [{ getUrl: u }, { idUser: iduser }] })
-            console.log(data.length)
-            if (data.length > 0) {
-                console.log("Url already available, please try again!", u, data.getUrl);
-                resR.redirect('/see');
-            }
-            if (data.length == 0) {
-                console.log('yyy')
-                let urll = new Url();
-                urll.getUrl = u;
-                let options = 'https://' + u;
-                request.get({ options, time: true, timeout: 3000 }, async(reqG, res) => {
-                    request.get(options, async(req, res1, body) => {
-                        let title;
-                        if (parseData(body) != null && res1.statusCode != null && res1 != null) {
-                            title = await parseData(body);
-                            urll.protocolUrl = options;
-                            urll.title = title;
-                            urll.idUser = iduser;
-                            await urll.save();
-                            resR.redirect('/see');
-                        } else {
-                            request.get('http://' + u, async(req2, res2, body2) => {
-                                if (parseData(body2) != null && res2 != null) {
-                                    let proUrl = 'http://' + u;
-                                    title = await parseData(body2);
-                                    urll.protocolUrl = proUrl;
-                                    urll.idUser = iduser;
-                                    urll.title = title;
-                                    await urll.save();
-                                    resR.redirect('/see');
-                                } else {
-                                    let proUrl1 = 'http://' + u;
-                                    urll.protocolUrl = proUrl1;
-                                    urll.idUser = iduser;
-                                    await urll.save();
-                                    resR.redirect('/see');
-                                }
-                            })
-                        }
+        if (u) {
+            let checked = async() => {
+                let data = await Url.find({ $and: [{ getUrl: u }, { idUser: iduser }] })
+                console.log(data.length)
+                if (data.length > 0) {
+                    console.log("Url already available, please try again!", u, data.getUrl);
+                    resR.redirect('/see');
+                }
+                if (data.length == 0) {
+                    console.log('yyy')
+                    let urll = new Url();
+                    urll.getUrl = u;
+                    let options = 'https://' + u;
+                    request.get({ options, time: true, timeout: 3000 }, async(reqG, res) => {
+                        request.get(options, async(req, res1, body) => {
+                            let title;
+                            if (parseData(body) != null && res1.statusCode != null && res1 != null) {
+                                title = await parseData(body);
+                                urll.protocolUrl = options;
+                                urll.title = title;
+                                urll.idUser = iduser;
+                                await urll.save();
+                                resR.redirect('/see');
+                            } else {
+                                request.get('http://' + u, async(req2, res2, body2) => {
+                                    if (parseData(body2) != null && res2 != null) {
+                                        let proUrl = 'http://' + u;
+                                        title = await parseData(body2);
+                                        urll.protocolUrl = proUrl;
+                                        urll.idUser = iduser;
+                                        urll.title = title;
+                                        await urll.save();
+                                        resR.redirect('/see');
+                                    } else {
+                                        let proUrl1 = 'http://' + u;
+                                        urll.protocolUrl = proUrl1;
+                                        urll.idUser = iduser;
+                                        await urll.save();
+                                        resR.redirect('/see');
+                                    }
+                                })
+                            }
+                        })
                     })
-                })
+                }
             }
+            try {
+                await checked();
+            } catch (error) {
+                console.log('xxx')
+            }
+        } else {
+            console.log('not lenth')
+            resR.redirect('/see')
         }
-        try {
-            checked();
-        } catch (error) {
-            console.log('xxx')
-        }
-
     },
     ajaxGetData: async function(req, res, next) {
         let iduser = req.session.passport.user;
