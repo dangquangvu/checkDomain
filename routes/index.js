@@ -6,21 +6,19 @@ var passport = require('passport');
 var flash = require('connect-flash');
 var session = require('express-session');
 var { Url, User, TimeCheck } = require('../db/index')
-var { AddDomain, ClientSide } = require('../controller')
+var { AddDomain, ClientSide, Reports } = require('../controller')
 var LocalStrategy = require('passport-local').Strategy;
 
-router.get('/reports', function(req, res) {
-    res.render('time-report.ejs', { title: 'report' });
-});
 router.get('/', ClientSide.showIndex);
 router.get('/see', isLoggedIn, ClientSide.see);
 router.get('/del/:idDel/:urlDel', isLoggedIn, ClientSide.deleteDomain)
+router.get('/reports', Reports.showReports);
 router.get('/refreshList', isLoggedIn, AddDomain.ajaxGetData);
 router.get('/getDomain', AddDomain.getDomain);
 router.post('/getDataDomain', AddDomain.getDataDomain);
 router.post('/see', isLoggedIn, AddDomain.addDomain);
-
-// Login logout Sign up 
+router.post('/reports', Reports.reportTime)
+    // Login logout Sign up 
 
 router.get('/login', function(req, res) {
     res.render('login.ejs', { message: req.flash('loginMessage'), title: 'Log In' });

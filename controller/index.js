@@ -1,4 +1,5 @@
 module.exports = {
     AddDomain: require('./addDomain'),
-    ClientSide: require('./ClientSide')
+    ClientSide: require('./ClientSide'),
+    Reports: require('./report')
 }
