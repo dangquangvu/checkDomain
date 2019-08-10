@@ -10,8 +10,8 @@ var timeCheck = new mongoose.Schema({
         type: Number
     },
     dateTime: {
-        type: Number,
-        default: 0
+        type: Date,
+        default: Date.now()
     },
     idUser: {
         type: String

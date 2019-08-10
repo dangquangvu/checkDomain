@@ -9,19 +9,21 @@ var { Url, User, TimeCheck } = require('../db/index')
 var { AddDomain, ClientSide } = require('../controller')
 var LocalStrategy = require('passport-local').Strategy;
 
-
+router.get('/reports', function(req, res) {
+    res.render('time-report.ejs', { title: 'report' });
+});
 router.get('/', ClientSide.showIndex);
-router.post('/see', isLoggedIn, AddDomain.addDomain);
 router.get('/see', isLoggedIn, ClientSide.see);
 router.get('/del/:idDel/:urlDel', isLoggedIn, ClientSide.deleteDomain)
 router.get('/refreshList', isLoggedIn, AddDomain.ajaxGetData);
 router.get('/getDomain', AddDomain.getDomain);
 router.post('/getDataDomain', AddDomain.getDataDomain);
+router.post('/see', isLoggedIn, AddDomain.addDomain);
 
 // Login logout Sign up 
 
 router.get('/login', function(req, res) {
-    res.render('login.ejs', { message: req.flash('loginMessage') });
+    res.render('login.ejs', { message: req.flash('loginMessage'), title: 'Log In' });
 });
 
 router.post('/login', passport.authenticate('local-login', {
@@ -31,7 +33,7 @@ router.post('/login', passport.authenticate('local-login', {
 }));
 router.get('/signup', function(req, res) {
 
-    res.render('signup.ejs', { message: req.flash('signupMessage') });
+    res.render('signup.ejs', { message: req.flash('signupMessage'), title: 'Sign Up' });
 });
 router.post('/signup', passport.authenticate('local-signup', {
     successRedirect: '/login',
