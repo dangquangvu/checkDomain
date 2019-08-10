@@ -5,6 +5,7 @@ var url = mongoose.Schema({
     getUrl: {
         type: String,
         trim: true,
+        require: true
     },
     protocolUrl: {
         type: String,
