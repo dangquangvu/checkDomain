@@ -1,5 +1,5 @@
 const mongoose = require('mongoose');
-
+const moment = require('moment');
 var timeCheck = new mongoose.Schema({
     getUrl: {
         type: String,
@@ -11,7 +11,7 @@ var timeCheck = new mongoose.Schema({
     },
     dateTime: {
         type: Date,
-        default: Date.now()
+        default: moment().format("YYYY-MM-DDTHH:mm:ss.SSSZ")
     },
     idUser: {
         type: String
