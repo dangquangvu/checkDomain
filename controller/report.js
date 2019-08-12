@@ -32,7 +32,7 @@ module.exports = {
                         let objectdata = [resultDate, timeload]
                         arrData.push(objectdata);
                     })
-                    res.json(arrData)
+                    res.send(arrData)
 
                 } else {
                     console.log('err-get-reports')
