@@ -32,7 +32,7 @@ module.exports = {
                         let objectdata = [resultDate, timeload]
                         arrData.push(objectdata);
                     })
-                    res.render('time-report2.ejs', { data: arrData })
+                    res.json(arrData)
 
                 } else {
                     console.log('err-get-reports')
@@ -60,7 +60,8 @@ module.exports = {
                         let objectdata = [resultDate, timeload]
                         arrData.push(objectdata);
                     })
-                    res.render('time-report2.ejs', { data: arrData })
+                    res.json(arrData)
+
                 } else {
                     console.log('err-get-reports')
                 }
@@ -80,16 +81,20 @@ module.exports = {
                 })
                 if (data) {
                     await data.map(async item => {
-                        let datetime = item.dateTime;
-                        let utcDate = moment(datetime).utcOffset('+0700').format("YYYY-MM-DDTHH:mm:ss.SSSZ");
-                        var myDate = new Date(utcDate);
-                        var result = myDate.getTime();
-                        let resultDate = result;
-                        let timeload = item.timeLoad;
-                        let objectdata = [resultDate, timeload]
-                        arrData.push(objectdata);
-                    })
-                    res.render('time-report2.ejs', { data: arrData })
+                            let datetime = item.dateTime;
+                            let utcDate = moment(datetime).utcOffset('+0700').format("YYYY-MM-DDTHH:mm:ss.SSSZ");
+                            var myDate = new Date(utcDate);
+                            var result = myDate.getTime();
+                            let resultDate = result;
+                            let timeload = item.timeLoad;
+                            let objectdata = [resultDate, timeload]
+                            arrData.push(objectdata);
+                        })
+                        // .map(item => {
+                        //     console.log(item);
+                        // })
+                    res.json(arrData)
+
                 } else {
                     console.log('err-get-reports')
                 }
@@ -118,7 +123,7 @@ module.exports = {
     },
     dataReports: async(req, res, next) => {
         let b = req.body.arrData;
-        res.send(b)
+        res.json(b)
     }
 }
 
