@@ -21,9 +21,6 @@ module.exports = {
                         $gte: date
                     }
                 });
-                data.map(item => {
-                    console.log(item)
-                })
                 if (data) {
                     await data.map(async item => {
                         let datetime = item.dateTime;
@@ -35,20 +32,13 @@ module.exports = {
                         let objectdata = [resultDate, timeload]
                         arrData.push(objectdata);
                     })
-                    arrData.map(item => {
-                        console.log(item);
-                    })
-                    axios.post('http://localhost:3000/dataReports', { arrData })
-                        .then(
-                            console.log("xxx")
-                        ).catch(function(error) {
-                            console.log(error);
-                        });
+                    res.render('time-report2.ejs', { data: arrData })
+
                 } else {
-                    console.log('xxx')
+                    console.log('err-get-reports')
                 }
             }
-            findDate();
+            await findDate();
         } else if (endDate) {
             let findDate = async() => {
                 let date = moment(endDate).format("YYYY-MM-DDTHH:mm:ss.SSSZ");
@@ -59,7 +49,6 @@ module.exports = {
                         $gte: date
                     }
                 });
-                data.map(item => { console.log(item) })
                 if (data) {
                     await data.map(async item => {
                         let datetime = item.dateTime;
@@ -71,22 +60,12 @@ module.exports = {
                         let objectdata = [resultDate, timeload]
                         arrData.push(objectdata);
                     })
-                    arrData.map(item => {
-                        console.log(item);
-                    })
-                    axios.post('http://localhost:3000/dataReports', { arrData })
-                        .then(
-                            console.log("xxx")
-                        ).catch(function(error) {
-                            console.log(error);
-                        });
+                    res.render('time-report2.ejs', { data: arrData })
                 } else {
-                    console.log('xxx')
+                    console.log('err-get-reports')
                 }
             }
-
-
-            findDate();
+            await findDate();
         } else if (endDate && startDate) {
             let findDate = async() => {
                 let sdate = moment(startDate).format("YYYY-MM-DDTHH:mm:ss.SSSZ");
@@ -99,7 +78,6 @@ module.exports = {
                         $lte: edate
                     }
                 })
-                data.map(item => { console.log(item) })
                 if (data) {
                     await data.map(async item => {
                         let datetime = item.dateTime;
@@ -111,20 +89,12 @@ module.exports = {
                         let objectdata = [resultDate, timeload]
                         arrData.push(objectdata);
                     })
-                    arrData.map(item => {
-                        console.log(item);
-                    })
-                    axios.post('http://localhost:3000/dataReports', { arrData })
-                        .then(
-                            console.log("xxx")
-                        ).catch(function(error) {
-                            console.log(error);
-                        });
+                    res.render('time-report2.ejs', { data: arrData })
                 } else {
-                    console.log('xxx')
+                    console.log('err-get-reports')
                 }
             }
-            findDate();
+            await findDate();
         }
     },
     showReports: async function(req, res) {
@@ -148,7 +118,7 @@ module.exports = {
     },
     dataReports: async(req, res, next) => {
         let b = req.body.arrData;
-        res.send(arrData)
+        res.send(b)
     }
 }
 

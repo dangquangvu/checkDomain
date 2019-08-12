@@ -86,13 +86,7 @@ module.exports = {
     getDomain: async function(req, res, next) {
         const arrDomain = []
         let data = []
-            //let iduser = req.session.passport.user;
-            //console.log(333, iduser)
         data = await getDomain(arrDomain);
-
-        // data.map(item => {
-        //     console.log(item);
-        // })
         res.send(data)
     },
     getDataDomain: async function(req, res, next) {
