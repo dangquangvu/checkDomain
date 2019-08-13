@@ -21,19 +21,24 @@ let updateMongo = async(listDomain) => {
             if (data.timeLoad.length < 10) {
                 console.log('else <10')
                 arrTimeLoad.push(item.timeLoad);
+                let count = 0;
+                console.log('fdfddfdffdffdfdfddffddfdfdfdfdf')
                 let checkWebDeath = async() => {
-                    let count = 0;
                     for (let i = 0; i < arrTimeLoad.length(); i++) {
+                        console.log('gggggg')
                         if (arr[i] == 0) {
                             count++;
+                            console.log('gggggggggggggggggg')
                             if (count == 3) {
                                 let urlData = item.url + ' Has a trouble!';
+                                console.log(urlData, typeof urlData)
                                 let object = {
                                     "msgtype": "text",
                                     "text": {
                                         "content": urlData
                                     }
                                 }
+                                console.log('ggggggggggggggggggggggggggg')
                                 axios.post('https://oapi.dingtalk.com/robot/send?access_token=f54b31959e65a16de90c41b3640cbc499824b45832ab57bed0249af360247b71', {...object })
                                     .then(data22 => {
                                         console.log(data22.data);
