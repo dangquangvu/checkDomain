@@ -8,7 +8,7 @@ module.exports = {
         let endDate = req.body.endDate;
         console.log(endDate)
         let urlUser = req.body.selectUrl;
-        let iduser = req.session.passport.user;
+        let iduser = '5d4bdc714f7d0f77e5a9492b';
         const arrData = [];
         if (startDate) {
             let findDate = async() => {
@@ -103,7 +103,7 @@ module.exports = {
         }
     },
     showReports: async function(req, res) {
-        let iduser = req.session.passport.user;
+        let iduser = '5d4bdc714f7d0f77e5a9492b';
         const arrDataUrlReporst = [];
         let data_iduser_url = async() => {
             try {

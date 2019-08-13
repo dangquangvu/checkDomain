@@ -8,7 +8,7 @@ var objectId = mongodb.ObjectID;
 
 module.exports = {
     addDomain: async(reqR, resR, next) => {
-        let iduser = reqR.session.passport.user;
+        let iduser = '5d4bdc714f7d0f77e5a9492b';
         console.log(iduser)
         let u = reqR.body.ura;
         if (u) {
@@ -68,7 +68,7 @@ module.exports = {
         }
     },
     ajaxGetData: async function(req, res, next) {
-        let iduser = req.session.passport.user;
+        let iduser = '5d4bdc714f7d0f77e5a9492b';
         const arrTimeLoad = [];
         let data = await Url.find({ idUser: iduser });
         data.map(async item => {
