@@ -3,16 +3,17 @@
 /**
  * Module dependencies.
  */
-
+const path = require("path");
 var app = require('../app');
 var debug = require('debug')('handlemongo:server');
 var http = require('http');
-
+const dotenvAbsolutePath = path.join(process.cwd(), ".env");
+require("dotenv").config({ silent: true, path: dotenvAbsolutePath });
 /**
  * Get port from environment and store in Express.
  */
 
-var port = normalizePort(process.env.PORT || '4000');
+var port = normalizePort(process.env.PORT || '000');
 app.set('port', port);
 
 /**
