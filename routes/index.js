@@ -10,15 +10,15 @@ var { AddDomain, ClientSide, Reports } = require('../controller')
 var LocalStrategy = require('passport-local').Strategy;
 
 router.get('/', ClientSide.showIndex);
-router.get('/see', isLoggedIn, ClientSide.see);
-router.get('/del/:idDel/:urlDel', isLoggedIn, ClientSide.deleteDomain)
+router.get('/see', ClientSide.see);
+router.get('/del/:idDel/:urlDel', ClientSide.deleteDomain)
 router.get('/reports', Reports.showReports);
-router.get('/refreshList', isLoggedIn, AddDomain.ajaxGetData);
+router.get('/refreshList', AddDomain.ajaxGetData);
 router.get('/getDomain', AddDomain.getDomain);
 router.post('/dataReports', Reports.dataReports);
 router.get('/dataReports', Reports.dataReports);
 router.post('/getDataDomain', AddDomain.getDataDomain);
-router.post('/see', isLoggedIn, AddDomain.addDomain);
+router.post('/see', AddDomain.addDomain);
 router.post('/reports', Reports.reportTime)
 
 // Login logout Sign up 
