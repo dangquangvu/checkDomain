@@ -5,7 +5,7 @@ var updateMongo = require('../routes/update.db')
 var getDomain = require('../routes/getDomain');
 var parseData = require('../routes/get.title');
 var objectId = mongodb.ObjectID;
-
+let count;
 module.exports = {
     addDomain: async(reqR, resR, next) => {
         let iduser = '5d4bdc714f7d0f77e5a9492b';
@@ -91,7 +91,7 @@ module.exports = {
     },
     getDataDomain: async function(req, res, next) {
         let b = req.body.listDomain;
-        updateMongo(b);
+        await updateMongo(b);
         res.end();
     }
 

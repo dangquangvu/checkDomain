@@ -40,6 +40,7 @@
                     timeout: 500, // timeout milliseconds
                     success: function(data, status, xhr) { // success callback function
                         //console.log(data)
+                        let counter =0;
                         data.map((item, index) => {
                             let text = "";
                             let green = '<i class="fa fa-square" id="green" aria-hidden="true"></i>'
@@ -62,7 +63,7 @@
 
                             }
                             document.getElementById("vl" + index).innerHTML = text;
-
+                            
                         })
                     },
                     error: function(jqXhr, textStatus, errorMessage) { // error callback 
