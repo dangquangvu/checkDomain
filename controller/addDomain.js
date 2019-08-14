@@ -1,5 +1,6 @@
 const request = require('request');
 const mongodb = require('mongodb');
+const axios = require('axios')
 var { Url, User, TimeCheck } = require('../db/index')
 var updateMongo = require('../routes/update.db')
 var getDomain = require('../routes/getDomain');
@@ -91,7 +92,49 @@ module.exports = {
     },
     getDataDomain: async function(req, res, next) {
         let b = req.body.listDomain;
+        let iduser = '5d4bdc714f7d0f77e5a9492b';
+        let count = 0;
         await updateMongo(b);
+        console.log(b);
+        b.map(async item => {
+                let arrWebRes = []
+                let data = await Url.find({ _id: item.id })
+                data.map(async it => {
+                    arrWebRes = it.timeLoad;
+                    let checkWebDeath = async() => {
+                        for (let i = 0; i < arrWebRes.length; i++) {
+                            console.log(arrWebRes, it.getUrl)
+                            if (arrWebRes[i] == 0) {
+                                count++;
+                                console.log(count)
+                                if (count == 3) {
+                                    let urlData = it.getUrl + ' Has a trouble!';
+                                    console.log(urlData, typeof it.getUrl)
+                                    let object = {
+                                        "msgtype": "text",
+                                        "text": {
+                                            "content": urlData
+                                        }
+                                    }
+                                    console.log('ggggggggggggggggggggggggggg')
+                                    await axios.post('https://oapi.dingtalk.com/robot/send?access_token=f54b31959e65a16de90c41b3640cbc499824b45832ab57bed0249af360247b71', {...object })
+                                        .then(data22 => {
+                                            console.log(data22.data);
+                                        }).catch(err => {
+                                            console.log(err)
+                                        });
+                                    break;
+                                }
+                            } else {
+                                count = 0;
+                            }
+                        }
+                    }
+                    await checkWebDeath()
+                })
+            })
+            // console.log()
+
         res.end();
     }
 
