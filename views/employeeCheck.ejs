@@ -28,14 +28,16 @@
     <!--===============================================================================================-->
     <link rel="stylesheet" type="text/css" href="css/util.css">
     <link rel="stylesheet" type="text/css" href="css/main.css">
-    <script>
+    <%# <script type="text/javascript">
         $(document).ready(function() {
             setInterval(checked, 1000);
 
             function checked() {
-                $.ajax('https://118.70.81.234:8443/api/thongketongdai.php, {
-                    dataType: 'text', // type of response data
-                    timeout: 500,
+                $.ajax({
+                    url:"https://118.70.81.234:8443/api/thongketongdai.php", 
+                    dataType: 'json', // type of response data
+                    timeout: 5000,
+                    type : "get",
                     rejectUnauthorized: false, // timeout milliseconds
                     success: function(data, status, xhr) {
                         console.log('emmmmmmmmmmmmmmmmmmmmmmppppppppppppppppppppppppp') // success callback function
@@ -52,12 +54,13 @@
                     },
                     error: function(jqXhr, textStatus, errorMessage) { // error callback 
                         //$('p').append('Error: ' + errorMessage);
-                        console.log('emmmmmmmmmmm')
+                        console.log('emmmmmmmmmmm');
+                        console.log(errorMessage)
                     }
                 });
             }
         });
-    </script>
+    </script> %>
   </head>
   <body>
       <p></p>
