@@ -95,7 +95,7 @@ module.exports = {
         let iduser = '5d4bdc714f7d0f77e5a9492b';
         let count = 0;
         await updateMongo(b);
-        console.log(b);
+        //console.log(b);
         b.map(async item => {
                 let arrWebRes = []
                 let data = await Url.find({ _id: item.id })
@@ -103,10 +103,10 @@ module.exports = {
                     arrWebRes = it.timeLoad;
                     let checkWebDeath = async() => {
                         for (let i = 0; i < arrWebRes.length; i++) {
-                            console.log(arrWebRes, it.getUrl)
+                            //console.log(arrWebRes, it.getUrl)
                             if (arrWebRes[i] == 0) {
                                 count++;
-                                console.log(count)
+                                //console.log(count)
                                 if (count == 3) {
                                     let urlData = it.getUrl + ' Has a trouble!';
                                     console.log(urlData, typeof it.getUrl)
@@ -117,7 +117,7 @@ module.exports = {
                                         }
                                     }
                                     console.log('ggggggggggggggggggggggggggg')
-                                    await axios.post('https://oapi.dingtalk.com/robot/send?access_token=f54b31959e65a16de90c41b3640cbc499824b45832ab57bed0249af360247b71', {...object })
+                                    axios.post('https://oapi.dingtalk.com/robot/send?access_token=f54b31959e65a16de90c41b3640cbc499824b45832ab57bed0249af360247b71', {...object })
                                         .then(data22 => {
                                             console.log(data22.data);
                                         }).catch(err => {

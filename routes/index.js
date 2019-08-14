@@ -6,7 +6,7 @@ var passport = require('passport');
 var flash = require('connect-flash');
 var session = require('express-session');
 var { Url, User, TimeCheck } = require('../db/index')
-var { AddDomain, ClientSide, Reports } = require('../controller')
+var { AddDomain, ClientSide, Reports, Employee } = require('../controller')
 var LocalStrategy = require('passport-local').Strategy;
 
 router.get('/', ClientSide.showIndex);
@@ -20,6 +20,7 @@ router.get('/dataReports', Reports.dataReports);
 router.post('/getDataDomain', AddDomain.getDataDomain);
 router.post('/see', AddDomain.addDomain);
 router.post('/reports', Reports.reportTime)
+router.get('/employee', Employee.employeeCheckOn)
 
 // Login logout Sign up 
 
