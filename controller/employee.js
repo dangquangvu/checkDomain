@@ -11,7 +11,8 @@ module.exports = {
             let arr = await axios.get("https://118.70.81.234:8443/api/thongketongdai.php", {
 
                 httpsAgent: new https.Agent({
-                    rejectUnauthorized: false
+                    rejectUnauthorized: false,
+                    keepAlive: true
                 })
             });
             if (arr) {
