@@ -9,8 +9,8 @@ module.exports = {
         const fruits = [];
         let data = async() => {
             let arr = await axios.get("https://118.70.81.234:8443/api/thongketongdai.php", {
-                host: '118.70.81.234',
-                port: '8443',
+                host: '178.128.18.180',
+                port: '4000',
                 headers: {
                     Host: '118.70.81.234:8443'
                 },
