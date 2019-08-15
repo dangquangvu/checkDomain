@@ -9,18 +9,9 @@ module.exports = {
         const fruits = [];
         let data = async() => {
             let arr = await axios.get("https://118.70.81.234:8443/api/thongketongdai.php", {
-                host: '178.128.18.180',
-                port: '4000',
-                headers: {
-                    Host: '118.70.81.234:8443'
-                },
                 httpsAgent: new https.Agent({
-                    rejectUnauthorized: false,
-                    keepAlive: true
-                }),
-                strictSSL: false,
-                secureProtocol: 'TLSv1_method',
-                pool: separateReqPool
+                    rejectUnauthorized: false
+                })
             });
             if (arr) {
                 var $ = cheerio.load(arr.data);
