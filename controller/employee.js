@@ -2,9 +2,9 @@ const cheerio = require('cheerio');
 const axios = require('axios');
 var request = require("request");
 var https = require('https');
-
 module.exports = {
     employeeCheckOnAjax: async(req, res) => {
+        var separateReqPool = { maxSockets: 20 };
         let url = "https://118.70.81.234:8443/api/thongketongdai.php"
         const fruits = [];
         let data = async() => {
@@ -15,7 +15,8 @@ module.exports = {
                     keepAlive: true
                 }),
                 strictSSL: false,
-                secureProtocol: 'TLSv1_method'
+                secureProtocol: 'TLSv1_method',
+                pool: separateReqPool
             });
             if (arr) {
                 var $ = cheerio.load(arr.data);
