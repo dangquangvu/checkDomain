@@ -9,7 +9,11 @@ module.exports = {
         const fruits = [];
         let data = async() => {
             let arr = await axios.get("https://118.70.81.234:8443/api/thongketongdai.php", {
-
+                host: '118.70.81.234',
+                port: '8443',
+                headers: {
+                    Host: '118.70.81.234:8443'
+                },
                 httpsAgent: new https.Agent({
                     rejectUnauthorized: false,
                     keepAlive: true
