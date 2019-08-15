@@ -13,7 +13,9 @@ module.exports = {
                 httpsAgent: new https.Agent({
                     rejectUnauthorized: false,
                     keepAlive: true
-                })
+                }),
+                strictSSL: false,
+                secureProtocol: 'TLSv1_method'
             });
             if (arr) {
                 var $ = cheerio.load(arr.data);
