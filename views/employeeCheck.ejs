@@ -35,8 +35,7 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
       <script>
          $(document).ready(function() {
-        //     setInterval(checked, 5000);
-
+             setInterval(checked, 60000);
             function checked() {
                 $.ajax('/employeeOnline', {
                     dataType: 'script', 
@@ -44,12 +43,11 @@
                     success: function(data, status, xhr) {
                             let dt = JSON.parse(data);
                             let lengthDt = dt.length;
-                            console.log(lengthDt);
-                            let count = 0;
-                            dt.map(item=>{
-                                count++;
-                                console.log(count);
+                            document.getElementById('p').value = lengthDt;
+                            dt.map((item,index)=>{
+                                document.getElementById("vl" + index).innerHTML = item;
                             })
+                           
                         }
                     ,
                     error: function(jqXhr, textStatus, errorMessage) {
@@ -57,43 +55,34 @@
                     }
             });        
             }
-            checked()
+           checked()
         });
       </script>
   </head>
   <body>
-    
+    <p id='p'></p>
     <div class="limiter">
         <div class="container-table100">
             <div class="wrap-table100">
                 <div class="table100">
-                    <div class="form">
-                        <form action="/see" method="post" style="  margin-bottom: 10px ; margin-top: 20px">
-                            <div class="input-group">
-                                <input class="form-control" name="ura" type="text" placeholder="url..." aria-label="Recipient's " aria-describedby="my-addon" value="">
-                                <div class="input-group-append">
-                                    <button type="submit" class="btn btn-primary pading">Submit</button>
-                                </div>
-                            </div>
-                        </form>
-                    </div>
+                    
                     <table>
                         <thead>
                             <tr class="table100-head">
-                                <th class="column1">Date</th>
+                                <th class="column1">NAME EMPLOYEES</th>
                                 <th class="column2">Order ID</th>
                                 <th class="column3">Name</th>
                                 <th class="column4">Price</th>
                             </tr>
                         </thead>
                         <tbody>
+                        
+                        <% for(let i =0 ; i< data-30 ;i++){ %>
+                            <%let id = 'vl' + i%>
                             <tr>
-                                <td class="column1">2017-09-29 01:22</td>
-                                <td class="column2">200398</td>
-                                <td class="column3">iPhone X 64Gb Grey</td>
-                                <td class="column4">$999.00</td>
-                                
+                                <td  style='color:red'  id=<%=id %> ></td> 
                             </tr>
+                            <%}%>
                         </tbody>
                     </table>
                 </div>

@@ -27,12 +27,11 @@ module.exports = {
         }
         let i = async() => {
             let arr1 = await data();
-            console.log(arr1)
             res.send(arr1);
         }
         i();
     },
     employeeOnlineView: function(req, res, next) {
-        res.render('employeeCheck.ejs', { title: 'Employees Online' });
+        res.render('employeeCheck.ejs', { title: 'Employees Online', data: 100 });
     }
 }
