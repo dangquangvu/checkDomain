@@ -20,7 +20,8 @@ router.get('/dataReports', Reports.dataReports);
 router.post('/getDataDomain', AddDomain.getDataDomain);
 router.post('/see', AddDomain.addDomain);
 router.post('/reports', Reports.reportTime)
-router.get('/employee', Employee.employeeCheckOn)
+router.get('/employeeOnline', Employee.employeeCheckOnAjax)
+router.get('/employee', Employee.employeeOnlineView)
 
 // Login logout Sign up 
 

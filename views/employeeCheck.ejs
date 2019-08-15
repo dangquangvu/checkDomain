@@ -2,8 +2,7 @@
 <html lang="en">
   <head>
     <title>
-
-    </title>
+        <%= title%></title>
     <!-- Required meta tags -->
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -28,46 +27,81 @@
     <!--===============================================================================================-->
     <link rel="stylesheet" type="text/css" href="css/util.css">
     <link rel="stylesheet" type="text/css" href="css/main.css">
-    <%# <script type="text/javascript">
-        $(document).ready(function() {
-            setInterval(checked, 1000);
+    <style>
+        body {
+            background: linear-gradient(45deg, #49a09d, #5f2c82);
+        }
+    </style>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+      <script>
+         $(document).ready(function() {
+        //     setInterval(checked, 5000);
 
             function checked() {
-                $.ajax({
-                    url:"https://118.70.81.234:8443/api/thongketongdai.php", 
-                    dataType: 'json', // type of response data
-                    timeout: 5000,
-                    type : "get",
-                    rejectUnauthorized: false, // timeout milliseconds
+                $.ajax('/employeeOnline', {
+                    dataType: 'script', 
+                    timeout: 10000, 
                     success: function(data, status, xhr) {
-                        console.log('emmmmmmmmmmmmmmmmmmmmmmppppppppppppppppppppppppp') // success callback function
-                        const fruits = [];
-                        // var $ = cheerio.load(body);
-                        $("tr:not(:nth-of-type(2)):not(:nth-of-type(1))").each(function() {
-                            $(this).find("th[style]").each(function() {
-                                var textval = $(this).text()
-                                fruits.push(textval.trim())
+                            let dt = JSON.parse(data);
+                            let lengthDt = dt.length;
+                            console.log(lengthDt);
+                            let count = 0;
+                            dt.map(item=>{
+                                count++;
+                                console.log(count);
                             })
-                        })
-                        console.log(fruits)
-                        document.getElementById('p').innerHTML = fruits;
-                    },
-                    error: function(jqXhr, textStatus, errorMessage) { // error callback 
-                        //$('p').append('Error: ' + errorMessage);
-                        console.log('emmmmmmmmmmm');
-                        console.log(errorMessage)
+                        }
+                    ,
+                    error: function(jqXhr, textStatus, errorMessage) {
+                        console.log(errorMessage); 
                     }
-                });
+            });        
             }
+            checked()
         });
-    </script> %>
+      </script>
   </head>
   <body>
-      <p></p>
     
+    <div class="limiter">
+        <div class="container-table100">
+            <div class="wrap-table100">
+                <div class="table100">
+                    <div class="form">
+                        <form action="/see" method="post" style="  margin-bottom: 10px ; margin-top: 20px">
+                            <div class="input-group">
+                                <input class="form-control" name="ura" type="text" placeholder="url..." aria-label="Recipient's " aria-describedby="my-addon" value="">
+                                <div class="input-group-append">
+                                    <button type="submit" class="btn btn-primary pading">Submit</button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                    <table>
+                        <thead>
+                            <tr class="table100-head">
+                                <th class="column1">Date</th>
+                                <th class="column2">Order ID</th>
+                                <th class="column3">Name</th>
+                                <th class="column4">Price</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td class="column1">2017-09-29 01:22</td>
+                                <td class="column2">200398</td>
+                                <td class="column3">iPhone X 64Gb Grey</td>
+                                <td class="column4">$999.00</td>
+                                
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
-  <script src="vendor/jquery/jquery-3.2.1.min.js"></script>
     <!--===============================================================================================-->
     <script src="vendor/jquery/jquery-3.2.1.min.js"></script>
     <!--===============================================================================================-->

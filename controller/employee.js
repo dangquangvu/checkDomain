@@ -4,7 +4,7 @@ var request = require("request");
 var https = require('https');
 
 module.exports = {
-    employeeCheckOn: async(req, res) => {
+    employeeCheckOnAjax: async(req, res) => {
         let url = "https://118.70.81.234:8443/api/thongketongdai.php"
         const fruits = [];
         let data = async() => {
@@ -28,7 +28,11 @@ module.exports = {
         let i = async() => {
             let arr1 = await data();
             console.log(arr1)
+            res.send(arr1);
         }
-        i()
+        i();
+    },
+    employeeOnlineView: function(req, res, next) {
+        res.render('employeeCheck.ejs', { title: 'Employees Online' });
     }
 }
