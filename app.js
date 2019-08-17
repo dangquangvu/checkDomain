@@ -45,14 +45,14 @@ app.use('/', indexRouter);
 app.use(function(req, res, next) {
     next(createError(404));
 });
-// app.use(function(req, res) {
-//     res.status(400);
-//     res.send({ title: '404: File Not Found', error: error });
-// });
-// app.use(function(error, req, res, next) {
-//     res.status(500);
-//     res.send({ title: '500: Internal Server Error', error: error });
-// });
+app.use(function(req, res) {
+    res.status(400);
+    res.send({ title: '404: File Not Found', error: error });
+});
+app.use(function(error, req, res, next) {
+    res.status(500);
+    res.send({ title: '500: Internal Server Error', error: error });
+});
 app.use(function(err, req, res, next) {
     res.locals.message = err.message;
     res.locals.error = req.app.get('env') === 'development' ? err : {};
