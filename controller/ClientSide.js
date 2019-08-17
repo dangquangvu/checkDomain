@@ -16,17 +16,16 @@ module.exports = {
     },
     deleteDomain: async function(req, res, next) {
         let idDel = objectId(req.params.idDel);
-        let urlDel = req.params.urlDel;
         let iduser = '5d4bdc714f7d0f77e5a9492b';
         try {
             let deleteUr = await Url.deleteOne({ _id: idDel });
         } catch (error) {
             console.log(error)
         }
-        //xu ly
         console.log(iduser);
         try {
-            let deletetime = await TimeCheck.deleteMany({ $and: [{ getUrl: urlDel }, { idUser: iduser }] }, { multi: true });
+            let deletetime = await TimeCheck.deleteMany({ idUrl: idDel }, { multi: true });
+            console.log('dellllll')
         } catch (error) {
             console.log(error)
         }

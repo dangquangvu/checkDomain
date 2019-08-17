@@ -9,6 +9,7 @@ let updateMongo = async(listDomain) => {
             timeItem.timeLoad = item.timeLoad;
             timeItem.dateTime = item.date;
             timeItem.idUser = item.iduser;
+            timeItem.idUrl = item.id;
             let saveUser = await timeItem.save();
         } catch (err) {
             console.log('err' + err);

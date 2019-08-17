@@ -15,6 +15,9 @@ var timeCheck = new mongoose.Schema({
     },
     idUser: {
         type: String
+    },
+    idUrl: {
+        type: String
     }
 }, { collection: 'timeMonth' });
 module.exports = mongoose.model('timeCheck', timeCheck);

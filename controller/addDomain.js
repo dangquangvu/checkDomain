@@ -95,7 +95,8 @@ module.exports = {
         let iduser = '5d4bdc714f7d0f77e5a9492b';
         let count = 0;
         await updateMongo(b);
-        //console.log(b);
+        console.log(b)
+            //console.log(b);
         b.map(async item => {
                 let arrWebRes = []
                 let data = await Url.find({ _id: item.id })

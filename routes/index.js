@@ -11,7 +11,7 @@ var LocalStrategy = require('passport-local').Strategy;
 
 router.get('/', ClientSide.showIndex);
 router.get('/see', ClientSide.see);
-router.get('/del/:idDel/:urlDel', ClientSide.deleteDomain)
+router.get('/del/:idDel', ClientSide.deleteDomain)
 router.get('/reports', Reports.showReports);
 router.get('/refreshList', AddDomain.ajaxGetData);
 router.get('/getDomain', AddDomain.getDomain);
