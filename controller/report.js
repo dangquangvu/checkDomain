@@ -24,7 +24,7 @@ module.exports = {
                 if (data) {
                     await data.map(async item => {
                         let datetime = item.dateTime;
-                        let utcDate = moment(datetime).utcOffset('+0700').format("YYYY-MM-DDTHH:mm:ss.SSSZ");
+                        let utcDate = moment(datetime).utcOffset("+07:00").format("YYYY-MM-DDTHH:mm:ss.SSSZ");
                         var myDate = new Date(utcDate);
                         var result = myDate.getTime();
                         let resultDate = result;
@@ -52,7 +52,7 @@ module.exports = {
                 if (data) {
                     await data.map(async item => {
                         let datetime = item.dateTime;
-                        let utcDate = moment(datetime).utcOffset('+0700').format("YYYY-MM-DDTHH:mm:ss.SSSZ");
+                        let utcDate = moment(datetime).utcOffset("+07:00").format("YYYY-MM-DDTHH:mm:ss.SSSZ");
                         var myDate = new Date(utcDate);
                         var result = myDate.getTime();
                         let resultDate = result;
@@ -82,7 +82,7 @@ module.exports = {
                 if (data) {
                     await data.map(async item => {
                             let datetime = item.dateTime;
-                            let utcDate = moment(datetime).utcOffset('+0700').format("YYYY-MM-DDTHH:mm:ss.SSSZ");
+                            let utcDate = moment(datetime).utcOffset("+07:00").format("YYYY-MM-DDTHH:mm:ss.SSSZ");
                             var myDate = new Date(utcDate);
                             var result = myDate.getTime();
                             let resultDate = result;

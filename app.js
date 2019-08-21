@@ -26,11 +26,12 @@ app.use(cookieParser());
 app.use(bodyParser());
 app.use(session({
     secret: '076ee61d63aa10a125ea872411e433b9',
-    cookie: { maxAge: 2592000000 },
+    cookie: { secure: true },
+    resave: false,
     saveUninitialized: true,
     store: new MongoStore({
-        mongooseConnection: mongoose.connection
-            //ttl: 60000
+        mongooseConnection: mongoose.connection,
+        ttl: 1000
     })
 }));
 app.use(flash());
