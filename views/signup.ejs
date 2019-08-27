@@ -1,9 +1,11 @@
 <!-- views/signup.ejs -->
 <!doctype html>
 <html>
+
 <head>
     <title>
-        <%= title%></title>
+        <%= title%>
+    </title>
     <!-- Required meta tags -->
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -50,15 +52,15 @@
     <form action="/signup" method="post">
 
         <div class="signup-container">
+            <% include ./partials/messages %>
+                <div class="col-sm-6 col-sm-offset-3">
+                    <% if (message.length > 0) { %>
+                        <div class="alert alert-danger">
+                            <%= message %>
+                        </div>
+                        <% } %>
 
-            <div class="col-sm-6 col-sm-offset-3">
-                <% if (message.length > 0) { %>
-                    <div class="alert alert-danger">
-                        <%= message %>
-                    </div>
-                    <% } %>
-
-                        <h1 style ="color: #10f5df"><span class="fa fa-sign-in"></span > Sign Up</h1>
+                            <h1 style="color: #10f5df"><span class="fa fa-sign-in"></span > Sign Up</h1>
 
 
                         <!-- show any messages that come back with authentication -->

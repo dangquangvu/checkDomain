@@ -26,6 +26,10 @@ var url = mongoose.Schema({
     flag: {
         type: Boolean,
         default: true
+    },
+    hidden: {
+        type: Boolean,
+        default: false,
     }
 }, { collection: 'Url' });
 module.exports = mongoose.model('url', url);

@@ -40,7 +40,7 @@
                     timeout: 500, // timeout milliseconds
                     success: function(data, status, xhr) { // success callback function
                         //console.log(data)
-                        let counter =0;
+                        let counter = 0;
                         data.map((item, index) => {
                             let text = "";
                             let green = '<i class="fa fa-square" id="green" aria-hidden="true"></i>'
@@ -63,7 +63,7 @@
 
                             }
                             document.getElementById("vl" + index).innerHTML = text;
-                            
+
                         })
                     },
                     error: function(jqXhr, textStatus, errorMessage) { // error callback 
@@ -107,52 +107,55 @@
         <div class="container-table100">
             <div class="wrap-table100">
                 <div class="table100">
-                    <div class="form">
-                        <form action="/see" method="post" style="  margin-bottom: 10px ; margin-top: 20px">
-                            <div class="input-group">
-                                <input class="form-control" name="ura" type="text" placeholder="ex:simthanglong.vn..." aria-label="Recipient's " aria-describedby="my-addon" value="">
-                                <div class="input-group-append">
-                                    <button type="submit" class="btn btn-primary pading">Submit</button>
+                    <% include ./partials/messages %>
+                        <div class="form">
+                            <form action="/see" method="post" style="  margin-bottom: 10px ; margin-top: 20px">
+                                <div class="input-group">
+                                    <input class="form-control" name="ura" type="text" placeholder="ex:simthanglong.vn..." aria-label="Recipient's " aria-describedby="my-addon" value="">
+                                    <div class="input-group-append">
+                                        <button type="submit" class="btn btn-primary pading">Submit</button>
+                                    </div>
                                 </div>
-                            </div>
-                        </form>
-                    </div>
-                    <table>
-                        <thead>
-                            <tr class="table100-head">
-                                <th class="column1">URL</th>
-                                <th class="column2" style="text-align-last: center">TITLE</th>
-                                <th class="column3" style="text-align-last: center">GRAPH</th>
-                                <th class="column4" style="text-align-last: center">TIME LOAD</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <form action="/see" method="get">
-                                <%data.forEach((dl,index) => {  %>
-                                    <%let id = 'vl' + index%>
-                                        <%let idtime = 'v' + index%>
-                                            <tr>
-                                                <td class="column1">
-                                                    <%= dl.getUrl%>
-                                                        <a href="/del/<%= dl._id%>" class="fa fa-trash" aria-hidden="true"></a>
-                                                </td>
-                                                <td class="column2">
-                                                    <%= dl.title%>
-                                                </td>
-                                                <td class="column3">
-                                                    <p id=<%=id %>></p>
-                                                </td>
-                                                <td class="column4">
-                                                    <p id=<%=idtime %>> 0ms</p>
-                                                </td>
-
-                                            </tr>
-                                            <%})%>
                             </form>
-                        </tbody>
-                    </table>
+                        </div>
+                        <table>
+                            <thead>
+                                <tr class="table100-head">
+                                    <th class="column1">URL</th>
+                                    <th class="column2" style="text-align-last: center">TITLE</th>
+                                    <th class="column3" style="text-align-last: center">GRAPH</th>
+                                    <th class="column4" style="text-align-last: center">TIME LOAD</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <form action="/see" method="get">
+                                    <%data.forEach((dl,index) => {  %>
+                                        <%let id = 'vl' + index%>
+                                            <%let idtime = 'v' + index%>
+                                                <tr>
+                                                    <td class="column1">
+                                                        <%= dl.getUrl%>
+                                                            <a href="/del/<%= dl._id%>" class="fa fa-trash" aria-hidden="true"></a>
+                                                    </td>
+                                                    <td class="column2">
+                                                        <%= dl.title%>
+                                                    </td>
+                                                    <td class="column3">
+                                                        <p id=<%=id %>></p>
+                                                    </td>
+                                                    <td class="column4">
+                                                        <p id=<%=idtime %>> 0ms</p>
+                                                    </td>
+
+                                                </tr>
+                                                <%})%>
+                                </form>
+                            </tbody>
+                        </table>
                 </div>
-                <p style="text-align: center ; margin-top: 10px">Another account? <a href="/logout">logout</a></p>
+                <p style="text-align: center ; margin-top: 10px">Another account? <a href="/logout">logout</a>
+                    <a href="/hiddenWeb"> Bin</a>
+                </p>
                 <p style="text-align: center ; margin-top: 10px">Reports? <a href="/reports">reports</a>Employees: <a href="/employee">employee</a></p>
             </div>
         </div>
