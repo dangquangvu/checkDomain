@@ -3,7 +3,7 @@
 
 <head>
     <title>
-        <%= title%>
+        enjoy!
     </title>
     <!-- Required meta tags -->
     <meta charset="utf-8">
@@ -29,76 +29,68 @@
     <!--===============================================================================================-->
     <link rel="stylesheet" type="text/css" href="css/util.css">
     <link rel="stylesheet" type="text/css" href="css/main.css">
-    <style>
-        body {
-            background: linear-gradient(45deg, #49a09d, #5f2c82);
-        }
-    </style>
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-    <script>
-        $(document).ready(function() {
-            setInterval(checked, 60000);
-
-            function checked() {
-                $.ajax('/employeeOnline', {
-                    dataType: 'script',
-                    timeout: 10000,
-                    success: function(data, status, xhr) {
-                        let dt = JSON.parse(data);
-                        let lengthDt = dt.length;
-                        document.getElementById('p').value = lengthDt;
-                        dt.map((item, index) => {
-                            document.getElementById("vl" + index).innerHTML = item;
-                        })
-
-                    },
-                    error: function(jqXhr, textStatus, errorMessage) {
-                        console.log(errorMessage);
-                    }
-                });
-            }
-            checked()
-        });
-    </script>
 </head>
 
-<body>
-    <p id='p'></p>
+<body style="background: linear-gradient(45deg, #4158d0, #c850c0)">
+
+
     <div class="limiter">
         <div class="container-table100">
             <div class="wrap-table100">
                 <div class="table100">
-
                     <table>
                         <thead>
-                            <tr class="table100-head ">
-                                <th style=" text-align : center">NAME EMPLOYEES</th>
+                            <tr class="table100-head">
+                                <th class="column1">URL</th>
+                                <th class="column2" style="text-align-last: center">TITLE</th>
+                                <th class="column3" style="text-align-last: center">GRAPH</th>
+                                <th class="column4" style="text-align-last: center">TIME LOAD</th>
                             </tr>
                         </thead>
                         <tbody>
-
-                            <% for(let i =0 ; i< data-30 ;i++){ %>
-                                <%let id = 'vl' + i%>
+                            <form action="/hiddenWeb" method="get">
+                                <% data.forEach((dl) => {  %>
                                     <tr>
-                                        <td style='color:red  ; text-align : center' id=<%=id %> ></td>
+                                        <td class="column1">
+                                            <%= dl.getUrl%>
+                                                <a href="/restore/<%= dl._id%>" class="fa fa-undo" aria-hidden="true"></a>
+                                        </td>
+                                        <td class="column2">
+                                            <%= dl.title%>
+                                        </td>
+                                        <td class="column3">
+                                        </td>
+                                        <td class="column4">
+                                        </td>
                                     </tr>
-                                    <%}%>
+                                    <%})%>
+                            </form>
                         </tbody>
                     </table>
                 </div>
-                <p style="text-align: center ; margin-top: 10px">Another account? <a href="/logout">logout</a></p>
-                <p style="text-align: center ; margin-top: 10px">Reports? <a href="/reports">reports</a>See: <a href="/see">see</a></p>
+                <p style="text-align: center ; margin-top: 10px">Another account? <a href="/logout">logout</a>
+                    <a href="/see"> See</a>
+                </p>
+                <p style="text-align: center ; margin-top: 10px">Reports? <a href="/reports">reports</a>Employees: <a href="/employee">employee</a></p>
             </div>
         </div>
     </div>
 
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+    <script src="vendor/jquery/jquery-3.2.1.min.js"></script>
     <!--===============================================================================================-->
     <script src="vendor/jquery/jquery-3.2.1.min.js"></script>
     <!--===============================================================================================-->
+    <script src="vendor/bootstrap/js/popper.js"></script>
+    <script src="vendor/bootstrap/js/bootstrap.min.js"></script>
     <!--===============================================================================================-->
     <script src="vendor/select2/select2.min.js"></script>
     <!--===============================================================================================-->
     <script src="js/main.js"></script>
+
 </body>
 
 </html>

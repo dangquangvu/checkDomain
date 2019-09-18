@@ -107,7 +107,7 @@ module.exports = {
         const arrDataUrlReporst = [];
         let data_iduser_url = async() => {
             try {
-                let data = await Url.find({ idUser: iduser })
+                let data = await Url.find({ idUser: iduser, hidden: false })
                 if (data) {
                     data.map(item => {
                         arrDataUrlReporst.push(item.getUrl);

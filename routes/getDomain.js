@@ -5,7 +5,7 @@ var getDomain = async(arrData) => {
         //console.log('xxx')
         const arrDataMongo = []
             //{ $and: [{ flag: true }, { idUser: iduser }]}
-        let data = await Url.find({ flag: true }).limit(10);
+        let data = await Url.find({ flag: true, hidden: false }).limit(10);
         console.log(data.length, typeof data)
         let mapItem = await data.map(item => {
             arrDataMongo.push(item);

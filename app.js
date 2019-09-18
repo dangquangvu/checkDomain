@@ -34,14 +34,15 @@ app.use(session({
         ttl: 1000
     })
 }));
-app.use(flash());
-app.use((req, res, next) => {
-    res.locals.success_mesages = req.flash('success')
-    res.locals.error_messages = req.flash('error')
-    next()
-})
 app.use(passport.initialize());
 app.use(passport.session());
+app.use(flash());
+app.use(function(req, res, next) {
+    res.locals.success_msg = req.flash('success_msg');
+    res.locals.error_msg = req.flash('error_msg');
+    res.locals.error = req.flash('error');
+    next();
+});
 app.use('/', indexRouter);
 app.use(function(req, res, next) {
     next(createError(404));

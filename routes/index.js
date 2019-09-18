@@ -12,6 +12,7 @@ var LocalStrategy = require('passport-local').Strategy;
 router.get('/', ClientSide.showIndex);
 router.get('/see', ClientSide.see);
 router.get('/del/:idDel', ClientSide.deleteDomain)
+router.get('/restore/:idRes', ClientSide.restoreDomain)
 router.get('/reports', Reports.showReports);
 router.get('/refreshList', AddDomain.ajaxGetData);
 router.get('/getDomain', AddDomain.getDomain);
@@ -22,6 +23,7 @@ router.post('/see', AddDomain.addDomain);
 router.post('/reports', Reports.reportTime)
 router.get('/employeeOnline', Employee.employeeCheckOnAjax)
 router.get('/employee', Employee.employeeOnlineView)
+router.get('/hiddenWeb', ClientSide.showHiddenWeb)
 
 // Login logout Sign up 
 

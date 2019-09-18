@@ -17,7 +17,7 @@ module.exports = {
                 let data = await Url.find({ $and: [{ getUrl: u }, { idUser: iduser }] })
                 console.log(data.length)
                 if (data.length > 0) {
-                    console.log("Url already available, please try again!", u, data.getUrl);
+                    //req.flash('error', 'Url already available, please try again!');
                     resR.redirect('/see');
                 }
                 if (data.length == 0) {
@@ -71,7 +71,7 @@ module.exports = {
     ajaxGetData: async function(req, res, next) {
         let iduser = '5d4bdc714f7d0f77e5a9492b';
         const arrTimeLoad = [];
-        let data = await Url.find({ idUser: iduser });
+        let data = await Url.find({ idUser: iduser, hidden: false });
         data.map(async item => {
             let geturl = item.getUrl;
             let time = [];
